@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (next-themes sets .dark on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Change these to restyle the whole site. */
+:root {
+  --background: #fafafa;
+  --foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --accent: #0284c7;
+  --accent-foreground: #ffffff;
+  /* code token colors */
+  --tok-keyword: #7c3aed;
+  --tok-string: #15803d;
+  --tok-number: #b45309;
+  --tok-type: #0369a1;
+  --tok-attr: #be185d;
+}
+
+.dark {
+  --background: #0b1020;
+  --foreground: #e6edf7;
+  --muted: #121a30;
+  --muted-foreground: #9aa8c2;
+  --border: #1f2a44;
+  --card: #0f172b;
+  --accent: #38bdf8;
+  --accent-foreground: #04101c;
+  --tok-keyword: #c4b5fd;
+  --tok-string: #86efac;
+  --tok-number: #fcd34d;
+  --tok-type: #7dd3fc;
+  --tok-attr: #f9a8d4;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  /* Inter has no Bengali glyphs, so Hind Siliguri is the fallback for Bangla text */
+  --font-sans: var(--font-inter), var(--font-bangla), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Code highlighting (rehype-highlight / highlight.js class names) */
+.hljs-comment,
+.hljs-quote {
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
+  color: var(--tok-keyword);
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: var(--tok-string);
+}
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-meta {
+  color: var(--tok-number);
+}
+.hljs-built_in,
+.hljs-type,
+.hljs-title,
+.hljs-section,
+.hljs-class .hljs-title {
+  color: var(--tok-type);
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-name {
+  color: var(--tok-attr);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

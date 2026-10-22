@@ -1,0 +1,90 @@
+---
+title: "BazarDor (বাজার দর)"
+summary: "A mobile-friendly dashboard of daily grocery prices across Bangladesh's markets, with price changes since yesterday and a market-by-market breakdown for every product."
+---
+
+## Why I built it
+
+BazarDor started as a Next.js assignment with a clear brief: a grocery price tracker for Bangladesh's markets, with sign-in and protected pages. I wanted to treat it like a real product rather than a demo, so prices appear in Bengali digits, the biggest price movers come first, and every page works on a phone.
+
+![BazarDor home page with a category bar, a scrolling price ticker and the hero section "আজকের বাজারের দাম এক নজরে"](/projects/bazardor-home.png)
+
+## What it does
+
+BazarDor shows today's prices for rice, pulses, oil, vegetables, fish, meat, dairy and spices. Every product shows how its price changed since yesterday, plus the minimum, maximum and average price across markets. All prices appear in Bengali digits, and the site works on mobile, tablet and desktop.
+
+- **Live price ticker:** an infinite scrolling strip with the product, price per unit and the up or down percentage change. It pauses on hover.
+- **Home dashboard:** the top 6 price risers, the top 6 fallers and the full product grid, with skeleton loaders while data loads.
+- **Category pages:** filter by category and sort by price (default, low to high, high to low).
+- **Protected product pages:** a summary, min, max and average prices, and a market-wise table across divisions. Visitors who are not signed in are redirected to sign in.
+- **Authentication:** email and password, Google and GitHub sign-in, plus a profile page where users can update their name.
+- **Friendly 404 and empty states:** invalid routes, categories and products show a clear message and a button back to the home page.
+
+## Stack
+
+| Purpose | Technology |
+| --- | --- |
+| Framework | Next.js (App Router) and React 19 |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 and DaisyUI |
+| Auth | BetterAuth (email and password, Google, GitHub) |
+| Database | MongoDB Atlas, for BetterAuth users and sessions |
+| Notifications | react-hot-toast |
+| Font | Hind Siliguri, for Bengali text |
+| Data | The BazarDor REST API |
+
+## Technical decisions
+
+### Sort on numbers, display in Bengali digits
+
+Prices are shown in Bengali numerals, which makes sorting easy to get wrong: if you sort the formatted strings, the order breaks, because the digits are text rather than numbers. BazarDor keeps the numeric value as the source of truth, sorts on that, and only formats the number for display. That is why the low-to-high and high-to-low sorting on category pages works for Bengali numerals.
+
+### Server-rendered dynamic routes
+
+The `/category/[slug]` and `/product/[slug]` routes are rendered on the server. Refreshing a deep link or opening one directly works without a 404, and invalid slugs render a proper not-found state instead of an empty page.
+
+### Protecting pages with middleware
+
+A `middleware.ts` file guards `/product/*` and `/profile/*`. Signed-out visitors are redirected to the sign-in page with a toast explaining why. Putting this check in middleware keeps the rule in one place instead of repeating it inside every page.
+
+### BetterAuth with MongoDB
+
+Authentication uses BetterAuth with email and password, Google and GitHub providers. User and session data live in MongoDB Atlas through the `mongodb` driver, and the collections are created automatically on first run, so setup is mostly environment variables.
+
+### A fallback for the data API
+
+The API client tries the main products API and automatically falls back to an alternative URL if it fails. The base URL can be overridden with an environment variable, which keeps the app usable when one endpoint is down.
+
+### Loading and empty states
+
+Home and category pages show skeleton loaders while data loads, and category pages have an explicit empty state. This keeps the layout stable and avoids a blank screen on slow mobile connections.
+
+## Structure
+
+```text
+src/
+  app/
+    (shop)/          home page and loading skeleton
+    category/[slug]/ category page: sort, skeleton, empty state
+    product/[slug]/  protected product details
+    profile/         profile and update-name route
+    signin/ signup/  authentication pages
+    api/auth/        BetterAuth route handler
+    not-found.tsx    404 page
+  components/        Navbar, Ticker, Hero, ProductCard, forms
+  lib/               API client, formatting, sorting, auth config
+  middleware.ts      protects /product/* and /profile/*
+```
+
+## Deployment
+
+The app is deployed on Vercel. Production needs the auth secret, the site URL, the MongoDB connection string, and the Google and GitHub OAuth credentials as environment variables, and the production callback URLs registered in both OAuth apps. MongoDB Atlas network access must allow Vercel to connect, which with a serverless host usually means a broad IP allowlist. That is a trade-off worth knowing about.
+
+## What I learned
+
+- **Keep numbers as numbers.** Bengali digits are only a display choice, so sorting on the numeric value and formatting at the last step kept the order correct.
+- **Protect routes in one place.** Middleware for `/product/*` and `/profile/*` was easier to reason about than checking sign-in inside every page.
+- **Auth is more than a login form.** Google and GitHub sign-in need callback URLs registered for each environment, and a database-backed app on Vercel needs its network access set up correctly.
+- **Plan for the unhappy paths.** Skeleton loaders, empty states and a fallback API URL made the app feel dependable instead of fragile.
+
+If I keep building on it, the next ideas are price history per product and a side-by-side comparison of markets, since the min, max and average data is already there.
