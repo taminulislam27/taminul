@@ -26,7 +26,7 @@ export default function ContactPage() {
         </ul>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-          <ContactForm formId={process.env.NEXT_PUBLIC_FORMSPREE_ID} />
+          <ContactForm formId={process.env.NEXT_PUBLIC_FORMSPREE_ID || "mdeaqvdp"} />
           <aside aria-label="Other ways to reach me" className="text-sm text-muted-foreground">
             <h2 className="font-mono text-xs uppercase tracking-wider text-accent">Prefer email?</h2>
             <p className="mt-3">

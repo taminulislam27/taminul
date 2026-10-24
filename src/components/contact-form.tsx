@@ -32,12 +32,13 @@ export function ContactForm({ formId }: { formId?: string }) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 
-    // Honeypot: real visitors never see or fill this field. Pretend success so bots learn nothing.
+    // 1. Honeypot check: real visitors never see or fill this field.
     if (String(data.get("_gotcha") ?? "") !== "") {
       setStatus("sent");
       return;
     }
 
+    // 2. Validate input fields with Zod schema first
     const parsed = schema.safeParse({
       name: data.get("name"),
       email: data.get("email"),
@@ -58,7 +59,7 @@ export function ContactForm({ formId }: { formId?: string }) {
     }
     setErrors({});
 
-    // No form service configured yet: open the visitor's email app with everything filled in.
+    // 3. Fallback: If no formId is passed, open mailto link
     if (!formId) {
       const { name, email, topic, message } = parsed.data;
       const body = `${message}\n\n— ${name} (${email})`;
@@ -67,13 +68,23 @@ export function ContactForm({ formId }: { formId?: string }) {
       return;
     }
 
+    // 4. Send successfully validated data to Formspree using FormData (avoids CORS issues)
     setStatus("sending");
     try {
+      const formData = new FormData();
+      formData.append("name", parsed.data.name);
+      formData.append("email", parsed.data.email);
+      formData.append("topic", parsed.data.topic);
+      formData.append("message", parsed.data.message);
+
       const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(parsed.data),
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
+
       setStatus(res.ok ? "sent" : "error");
     } catch {
       setStatus("error");
