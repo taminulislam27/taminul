@@ -29,9 +29,10 @@ Other commands: `npm run lint`, `npm run build`, `npm start`.
 1. Push this folder to a GitHub repo.
 2. Import the repo at vercel.com/new (framework is detected automatically).
 3. Add the environment variables from `.env.example`:
-   - `NEXT_PUBLIC_SITE_URL`: your final domain, e.g. `https://yourdomain.dev`.
-   - `NEXT_PUBLIC_FORMSPREE_ID`: from formspree.io. Create a free form, open its **Integration** tab and copy the form ID shown under "Your form's endpoint is". Until it is set, the contact form opens the visitor's email app instead. Environment variables only apply to new deployments, so **redeploy** after adding or changing it.
+   - `NEXT_PUBLIC_SITE_URL`: your final domain, e.g. `https://yourdomain.dev`. If you skip it on Vercel, the project's own `.vercel.app` address is used.
+   - `NEXT_PUBLIC_FORMSPREE_ID` (optional): the contact form already uses your Formspree form ID, set in `src/app/contact/page.tsx`. Set this variable only to switch to a different form (from formspree.io, open its **Integration** tab and copy the ID under "Your form's endpoint is"). On Vercel set its Type to **Config**, not Secret (Vercel refuses a Secret named `NEXT_PUBLIC_...`). Environment variables only apply to new deployments, so **redeploy** after changing it. If the ID is empty, the form opens the visitor's email app instead.
    - `GITHUB_TOKEN` (optional): a token with no scopes, to avoid GitHub API rate limits.
+   - `NEXT_PUBLIC_GOOGLE_VERIFICATION` (optional): for Google Search Console, see `LAUNCH.md`.
 
 Live data (Codeforces, GitHub) refreshes hourly. If an API is unreachable, the page shows a fallback instead of breaking.
 
@@ -42,4 +43,6 @@ Live data (Codeforces, GitHub) refreshes hourly. If an API is unreachable, the p
 - [x] Week 3: Projects with MDX case studies
 - [x] Week 4: Blog (list, tags, post pages, code highlighting, RSS)
 - [x] Week 5: CP page with live Codeforces stats, GitHub activity, Teaching page, contact form
-- [ ] Week 6: polish, accessibility, performance, SEO, launch
+- [x] Week 6: accessibility, performance, SEO (icons, social preview image, structured data), launch kit
+
+See `LAUNCH.md` for the go-live checklist (domain, Google Search Console, profile updates, announcement drafts).

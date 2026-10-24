@@ -7,8 +7,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Tag } from "@/components/section";
 import { Toc } from "@/components/toc";
 import { mdxComponents } from "@/components/mdx";
+import { JsonLd } from "@/components/json-ld";
 import { mdxOptions } from "@/lib/mdx-options";
 import { formatDate, getAllPosts, getHeadings, getPost } from "@/lib/posts";
+import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -26,6 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.summary,
     alternates: post.canonical ? { canonical: post.canonical } : undefined,
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: post.cover ? [post.cover] : undefined,
+    },
     openGraph: {
       type: "article",
       title: post.title,
@@ -45,9 +53,26 @@ export default async function PostPage({ params }: Props) {
   const date = formatDate(post.date);
   const headings = getHeadings(post.content);
   const originalUrl = post.canonical ?? post.medium;
+  const postUrl = `${site.url}/blog/${post.slug}`;
+
+  // Structured data so search engines understand this is an article by Taminul Islam.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    inLanguage: post.lang,
+    datePublished: post.date,
+    keywords: post.tags.join(", "),
+    image: post.cover ? `${site.url}${post.cover}` : undefined,
+    url: postUrl,
+    mainEntityOfPage: postUrl,
+    author: { "@type": "Person", name: site.name, url: site.url },
+  };
 
   return (
     <article className="mx-auto max-w-3xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
+      <JsonLd data={jsonLd} />
       <Link
         href="/blog"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"

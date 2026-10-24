@@ -13,6 +13,8 @@ const bangla = Hind_Siliguri({
   weight: ["400", "500", "600", "700"],
   variable: "--font-bangla",
   display: "swap",
+  // Don't preload on every page: the browser downloads it only when Bangla text appears.
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -27,6 +29,11 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image", title: site.title, description: site.description },
+  authors: [{ name: site.name, url: site.url }],
+  // Optional: Google Search Console "HTML tag" verification, set on Vercel as NEXT_PUBLIC_GOOGLE_VERIFICATION.
+  verification: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {

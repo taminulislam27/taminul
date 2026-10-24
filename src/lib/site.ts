@@ -1,13 +1,18 @@
 // Single source of truth for site content. Edit here, not in components.
 
+// Preference order: your own domain (NEXT_PUBLIC_SITE_URL), then the URL Vercel assigns the project, then localhost.
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : undefined;
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? vercelUrl ?? "http://localhost:3000").replace(/\/+$/, "");
+
 export const site = {
   name: "Taminul Islam",
   shortName: "Taminul",
   title: "Taminul Islam | CSE Student, Problem Solver & Coding Instructor",
   description:
     "Taminul Islam is a Computer Science and Engineering student at the University of Barishal, a competitive programmer and a coding instructor, open to internships, mentoring and collaboration.",
-  // Replace with your real domain once you buy it.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: siteUrl,
   email: "taminulislam27@gmail.com",
   tagline: "CSE student who solves problems, builds web apps and teaches others to code.",
   intro:

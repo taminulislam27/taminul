@@ -8,6 +8,8 @@ export type Project = {
   // Leave a link undefined until you have the real URL. The UI hides missing links.
   live?: string;
   repo?: string;
+  /** Screenshot under /public, used for social previews of the case study. */
+  image?: string;
   featured: boolean;
   // true when content/projects/<slug>.mdx exists
   caseStudy: boolean;
@@ -29,6 +31,7 @@ export const projects: Project[] = [
       "Email, Google and GitHub sign-in with BetterAuth",
     ],
     live: "https://bazar-dor-eight-eta.vercel.app/",
+    image: "/projects/bazardor-home.png",
     repo: "https://github.com/taminulislam27/BazarDor",
     featured: true,
     caseStudy: true,
@@ -48,6 +51,7 @@ export const projects: Project[] = [
       "Plan state persisted across reloads",
     ],
     live: "https://fit-log-theta-bice.vercel.app/",
+    image: "/projects/fitlog-home.png",
     repo: "https://github.com/taminulislam27/Fit-Log",
     featured: true,
     caseStudy: true,

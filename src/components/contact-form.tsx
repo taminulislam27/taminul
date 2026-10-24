@@ -54,6 +54,9 @@ export function ContactForm({ formId }: { formId?: string }) {
         topic: fieldErrors.topic?.[0],
         message: fieldErrors.message?.[0],
       });
+      // Move keyboard and screen-reader focus to the first field that needs fixing.
+      const firstInvalid = (["name", "email", "topic", "message"] as const).find((f) => fieldErrors[f]?.[0]);
+      if (firstInvalid) document.getElementById(firstInvalid)?.focus();
       setStatus("idle");
       return;
     }
@@ -76,6 +79,8 @@ export function ContactForm({ formId }: { formId?: string }) {
       formData.append("email", parsed.data.email);
       formData.append("topic", parsed.data.topic);
       formData.append("message", parsed.data.message);
+      // Formspree uses this as the subject line of the email you receive.
+      formData.append("_subject", `[${parsed.data.topic}] message from ${parsed.data.name} via your website`);
 
       const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",

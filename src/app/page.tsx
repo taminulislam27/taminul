@@ -5,6 +5,7 @@ import { featuredProjects } from "@/lib/projects";
 import { Card, Section } from "@/components/section";
 import { ProjectCard } from "@/components/project-card";
 import { PostCard } from "@/components/post-card";
+import { JsonLd } from "@/components/json-ld";
 import { getAllPosts } from "@/lib/posts";
 
 const teaching = [
@@ -27,11 +28,25 @@ const teaching = [
 
 const medium = socials.find((s) => s.label === "Medium")!;
 
+// Structured data for search engines. Only profile links known to be correct are listed here.
+const verifiedProfiles = ["GitHub", "Medium", "X"];
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: site.url,
+  jobTitle: "Computer Science and Engineering student",
+  description: site.description,
+  affiliation: { "@type": "CollegeOrUniversity", name: "University of Barishal" },
+  sameAs: socials.filter((s) => verifiedProfiles.includes(s.label)).map((s) => s.href),
+};
+
 export default async function Home() {
   const latestPosts = (await getAllPosts()).slice(0, 3);
 
   return (
     <>
+      <JsonLd data={personJsonLd} />
       <section className="mx-auto max-w-5xl px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
         <p className="font-mono text-sm text-accent">Hello, world.</p>
         <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
@@ -62,12 +77,9 @@ export default async function Home() {
       <section aria-label="Highlights" className="border-y border-border bg-muted/40">
         <dl className="mx-auto grid max-w-5xl grid-cols-2 gap-6 px-4 py-8 sm:px-6 md:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label}>
-              <dt className="sr-only">{s.label}</dt>
+            <div key={s.label} className="flex flex-col-reverse">
+              <dt className="mt-1 text-sm text-muted-foreground">{s.label}</dt>
               <dd className="text-2xl font-bold tracking-tight sm:text-3xl">{s.value}</dd>
-              <p className="mt-1 text-sm text-muted-foreground" aria-hidden>
-                {s.label}
-              </p>
             </div>
           ))}
         </dl>

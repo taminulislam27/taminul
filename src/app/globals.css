@@ -11,7 +11,8 @@
   --muted-foreground: #475569;
   --border: #e2e8f0;
   --card: #ffffff;
-  --accent: #0284c7;
+  /* Darker sky blue: 5.7:1 on the light background, which passes WCAG AA for normal text (#0284c7 was 3.9:1). */
+  --accent: #0369a1;
   --accent-foreground: #ffffff;
   /* code token colors */
   --tok-keyword: #7c3aed;

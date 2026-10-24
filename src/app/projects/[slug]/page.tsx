@@ -22,9 +22,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === slug);
   const study = await getCaseStudy(slug);
   if (!project || !study) return {};
+  const title = study.meta.title ?? project.title;
+  const description = study.meta.summary ?? project.tagline;
+  const images = project.image ? [{ url: project.image, alt: `${project.title} home page` }] : undefined;
   return {
-    title: study.meta.title ?? project.title,
-    description: study.meta.summary ?? project.tagline,
+    title,
+    description,
+    openGraph: { type: "article", title, description, images },
+    twitter: { card: "summary_large_image", title, description, images: project.image ? [project.image] : undefined },
   };
 }
 
