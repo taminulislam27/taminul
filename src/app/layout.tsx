@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
+import { ContactWidget } from "@/components/contact-widget";
 import { Footer } from "@/components/footer";
 import { site } from "@/lib/site";
 
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </main>
           <Footer />
+          <ContactWidget />
         </ThemeProvider>
         {/* Visitor counts and page views. Needs to be switched on once in the Vercel dashboard (see LAUNCH.md). */}
         <Analytics />

@@ -14,6 +14,9 @@ export const site = {
     "Taminul Islam is a Computer Science and Engineering student at the University of Barishal, a competitive programmer and a coding instructor, open to internships, mentoring and collaboration.",
   url: siteUrl,
   email: "taminulislam27@gmail.com",
+  // WhatsApp number in international format, digits only (Bangladesh: 880 + number without the leading 0).
+  whatsapp: "8801784870352",
+  ngl: "https://ngl.link/taminul2",
   tagline: "CSE student who solves problems, builds web apps and teaches others to code.",
   intro:
     "I'm a CSE student at the University of Barishal. I solve problems, build web apps, and teach others to code.",
