@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import type { Project } from "@/lib/projects";
@@ -19,6 +20,17 @@ function LinkOut({ href, children }: { href: string; children: React.ReactNode }
 export function ProjectCard({ project, detailed = false }: { project: Project; detailed?: boolean }) {
   return (
     <Card className="flex h-full flex-col">
+      {project.image && (
+        <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-lg border border-border bg-muted">
+          <Image
+            src={project.image}
+            alt={`Screenshot of ${project.title}`}
+            fill
+            sizes="(min-width: 1024px) 320px, (min-width: 768px) 50vw, 100vw"
+            className="object-cover object-top"
+          />
+        </div>
+      )}
       <h3 className="text-lg font-semibold">{project.title}</h3>
       <p className="mt-1 text-sm text-muted-foreground">{project.tagline}</p>
 

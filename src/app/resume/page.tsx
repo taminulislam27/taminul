@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Download } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Tag } from "@/components/section";
+import { photos } from "@/lib/gallery";
 import { resume } from "@/lib/resume";
 import { site } from "@/lib/site";
 
@@ -24,7 +26,8 @@ export default function ResumePage() {
       <PageHeader title="Resume" subtitle={`${site.name} · CSE student, University of Barishal`} />
 
       <div className="mx-auto max-w-3xl space-y-12 px-4 pb-20 sm:px-6">
-        <div className="flex flex-wrap items-center gap-4 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div className="flex flex-wrap items-center gap-4 text-sm">
           {resume.pdf && (
             <a
               href={resume.pdf}
@@ -37,6 +40,16 @@ export default function ResumePage() {
           <a href={`mailto:${site.email}`} className="text-accent underline-offset-4 hover:underline">
             {site.email}
           </a>
+          </div>
+          <Image
+            src={photos.portraitBw.src}
+            alt={photos.portraitBw.alt}
+            width={photos.portraitBw.width}
+            height={photos.portraitBw.height}
+            priority
+            sizes="128px"
+            className="h-32 w-32 rounded-2xl border border-border bg-muted object-cover object-top"
+          />
         </div>
 
         <section>

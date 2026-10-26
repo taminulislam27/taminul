@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { site, socials, stats } from "@/lib/site";
@@ -7,6 +8,7 @@ import { ProjectCard } from "@/components/project-card";
 import { PostCard } from "@/components/post-card";
 import { JsonLd } from "@/components/json-ld";
 import { getAllPosts } from "@/lib/posts";
+import { photos } from "@/lib/gallery";
 
 const teaching = [
   {
@@ -24,6 +26,13 @@ const teaching = [
     org: "Barishal University IT Society",
     body: "Designing hands-on workshops and organizing competitive programming contests and coding bootcamps.",
   },
+];
+
+const beyond = [
+  { when: "2025–26", title: "Organizer, Hult Prize at University of Barishal" },
+  { when: "26 Dec 2026", title: "Campus Ambassador, International AI Builders Congress" },
+  { when: "2025", title: "Campus Ambassador, Phitron (Phitronista'25)" },
+  { when: "Hackathon", title: "Batch Winner (11th Batch), Onebyzero Edu Problem-Solving Hackathon" },
 ];
 
 const medium = socials.find((s) => s.label === "Medium")!;
@@ -47,7 +56,8 @@ export default async function Home() {
   return (
     <>
       <JsonLd data={personJsonLd} />
-      <section className="mx-auto max-w-5xl px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
+      <section className="mx-auto grid max-w-5xl items-center gap-10 px-4 pb-16 pt-16 sm:px-6 sm:pt-24 md:grid-cols-[1fr_auto]">
+        <div>
         <p className="font-mono text-sm text-accent">Hello, world.</p>
         <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
           Hi, I&apos;m {site.shortName}.
@@ -72,6 +82,17 @@ export default async function Home() {
         <p className="mt-6 text-sm text-muted-foreground">
           Open to {site.openTo.map((t) => t.toLowerCase()).join(" · ")}
         </p>
+        </div>
+
+        <Image
+          src={photos.portraitNew.src}
+          alt={photos.portraitNew.alt}
+          width={photos.portraitNew.width}
+          height={photos.portraitNew.height}
+          priority
+          sizes="(min-width: 768px) 288px, 224px"
+          className="h-56 w-56 object-contain md:h-72 md:w-72"
+        />
       </section>
 
       <section aria-label="Highlights" className="border-y border-border bg-muted/40">
@@ -87,7 +108,7 @@ export default async function Home() {
 
       <Section
         title="Featured projects"
-        subtitle="Full-stack apps and a C++ systems project, built to solve real problems."
+        subtitle="Full-stack web apps and a Java desktop system, built to solve real problems."
         href="/projects"
         hrefLabel="All projects"
       >
@@ -113,6 +134,33 @@ export default async function Home() {
               <p className="mt-2 text-sm text-muted-foreground">{t.body}</p>
             </Card>
           ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Beyond the code"
+        subtitle="Organizing, representing my university and showing up."
+        href="/activities"
+        hrefLabel="Activities and awards"
+        className="border-t border-border"
+      >
+        <div className="grid items-center gap-8 md:grid-cols-2">
+          <Image
+            src={photos.runTeam.src}
+            alt={photos.runTeam.alt}
+            width={photos.runTeam.width}
+            height={photos.runTeam.height}
+            sizes="(min-width: 768px) 480px, 100vw"
+            className="h-auto w-full rounded-xl border border-border"
+          />
+          <ul className="space-y-4 text-sm">
+            {beyond.map((b) => (
+              <li key={b.title}>
+                <p className="font-mono text-xs text-accent">{b.when}</p>
+                <p className="mt-1 font-semibold">{b.title}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 

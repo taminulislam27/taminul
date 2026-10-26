@@ -4,6 +4,8 @@ import { ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card, Section } from "@/components/section";
 import { GithubActivity } from "@/components/github-activity";
+import { ZoomImage } from "@/components/zoom-image";
+import { photos } from "@/lib/gallery";
 import { codechef, getCodeforces, highlights } from "@/lib/cp";
 import { socials } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -145,6 +147,32 @@ export default async function CompetitiveProgrammingPage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      <Section
+        title="On the contest floor"
+        subtitle="Photos from on-site programming contests. Click a photo to enlarge it."
+        className="border-t border-border"
+      >
+        <div className="grid items-start gap-4 sm:grid-cols-3">
+          <ZoomImage photo={photos.lab2} ratio="aspect-[4/3]" sizes="(min-width: 640px) 33vw, 100vw" />
+          <ZoomImage photo={photos.lab3} ratio="aspect-[4/3]" sizes="(min-width: 640px) 33vw, 100vw" />
+          <ZoomImage photo={photos.lab4} ratio="aspect-[4/3]" sizes="(min-width: 640px) 33vw, 100vw" />
+        </div>
+      </Section>
+
+      <Section
+        title="Recognition"
+        subtitle="Certificates and awards for problem solving."
+        href="/activities"
+        hrefLabel="More activities and awards"
+        className="border-t border-border"
+      >
+        <div className="grid gap-6 sm:grid-cols-3">
+          <ZoomImage photo={photos.phitronDsa} ratio="aspect-[4/3]" sizes="(min-width: 640px) 33vw, 100vw" />
+          <ZoomImage photo={photos.onebyzero} ratio="aspect-[4/3]" position="object-[50%_45%]" sizes="(min-width: 640px) 33vw, 100vw" />
+          <ZoomImage photo={photos.phitronKit} ratio="aspect-[4/3]" sizes="(min-width: 640px) 33vw, 100vw" />
+        </div>
       </Section>
 
       <Section

@@ -8,7 +8,7 @@ export type Project = {
   // Leave a link undefined until you have the real URL. The UI hides missing links.
   live?: string;
   repo?: string;
-  /** Screenshot under /public, used for social previews of the case study. */
+  /** Screenshot under /public: shown on the project card and used for social previews. */
   image?: string;
   featured: boolean;
   // true when content/projects/<slug>.mdx exists
@@ -31,7 +31,7 @@ export const projects: Project[] = [
       "Email, Google and GitHub sign-in with BetterAuth",
     ],
     live: "https://bazar-dor-eight-eta.vercel.app/",
-    image: "/projects/bazardor-home.png",
+    image: "/projects/bazardor-cover.jpg",
     repo: "https://github.com/taminulislam27/BazarDor",
     featured: true,
     caseStudy: true,
@@ -51,25 +51,27 @@ export const projects: Project[] = [
       "Plan state persisted across reloads",
     ],
     live: "https://fit-log-theta-bice.vercel.app/",
-    image: "/projects/fitlog-home.png",
+    image: "/projects/fitlog-cover.jpg",
     repo: "https://github.com/taminulislam27/Fit-Log",
     featured: true,
     caseStudy: true,
   },
   {
-    slug: "smart-student-manager",
-    title: "Smart Student Manager",
-    tagline: "A C++ command-line system for managing large student datasets.",
+    slug: "university-bus-tracker",
+    title: "University Bus Tracking System",
+    tagline: "A Java Swing and MySQL desktop app for tracking university buses, built by Team ByteBrains.",
     description:
-      "Built with data structures and algorithms to store, search and process large sets of student records, using optimized searching and sorting for fast retrieval and updates, with clean OOP and careful memory management.",
-    stack: ["C++", "Data Structures", "Algorithms", "OOP"],
+      "A role-based desktop application that makes university transport easier to monitor for students, drivers and administrators. It is grounded in real route names, stop sequences, bus identifiers and published schedules, with simulated live tracking that can later be swapped for a real GPS source.",
+    stack: ["Java", "Java Swing", "MySQL", "JDBC", "NetBeans", "XAMPP"],
     features: [
-      "Fast search and sort over large record sets",
-      "Record updates without re-processing everything",
-      "Object-oriented design with explicit memory management",
+      "Admin: manage buses, routes, drivers, approvals and feedback, with fleet statistics and CSV reports",
+      "Driver: start trips and move the bus along its assigned route",
+      "Student: pick a route, watch buses, see estimated arrival times and schedules, and send feedback",
+      "Simulated live tracking through a current stop index, kept in sync by periodic database polling",
     ],
+    image: "/projects/bus-tracker-cover.jpg",
     featured: true,
-    caseStudy: false,
+    caseStudy: true,
   },
 ];
 

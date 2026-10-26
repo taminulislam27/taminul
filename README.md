@@ -18,6 +18,9 @@ Other commands: `npm run lint`, `npm run build`, `npm start`.
 - `content/projects/*.mdx` — case studies (frontmatter: `title`, `summary`). Edit the "Why I built it" and "What I learned" sections so they match your own experience.
 - `content/blog/*.mdx` — blog posts. Frontmatter: `title`, `summary`, `date` ("YYYY-MM-DD"), `tags`, `lang` (`en` or `bn`), optional `cover`, `coverAlt`, `canonical` (original URL if first published elsewhere) and `draft: true` (hidden in production). Reading time, table of contents, tag pages, sitemap and RSS (`/feed.xml`) are generated automatically.
 - `public/blog/`, `public/projects/` — images used by posts and case studies.
+- `src/lib/gallery.ts` — every photo and certificate (path, size, alt text, caption) and the text of the Activities page. Files live in `public/images/`; keep them under about 1600 px wide (WebP). Photos open larger on click via `src/components/zoom-image.tsx`.
+- `src/lib/now.ts` — the `/now` page. Edit about once a month and change `updated`. `src/lib/uses.ts` — the `/uses` page.
+- Analytics: `@vercel/analytics` is in `src/app/layout.tsx`. Turn it on once in the Vercel dashboard (see `LAUNCH.md`).
 - `src/lib/cp.ts` — Codeforces handle, CodeChef rating and contest highlights. `src/lib/github.ts` — GitHub username.
 - `src/lib/resume.ts` — web resume. The PDF lives in `public/`; set `pdf` to `null` to hide the download button.
 - `src/app/globals.css` — color tokens for light and dark mode.

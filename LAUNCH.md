@@ -45,6 +45,17 @@ You should see a dark card with your name and tagline for the home page, and the
 
 In Chrome: open your live site, DevTools, Lighthouse tab, mobile, Analyze. Aim for 90+ on Performance, Accessibility, Best Practices and SEO. If something scores lower, paste the report's top issues into a new message and I will fix them.
 
+## Turn on analytics (one time, 5 minutes)
+
+The site already includes Vercel Web Analytics, but it stays off until you switch it on.
+
+1. Deploy this version (push to GitHub so Vercel builds it).
+2. In the Vercel dashboard, open **Analytics** in the sidebar, choose your project and click **Enable**. Then redeploy once more so the new routes are added.
+3. Visit your site, open the browser's Network tab and look for a request ending in `/view`. That confirms it works.
+4. Wait a few days of real visitors before reading the charts. The free Hobby plan includes 50,000 events a month and shows one month of data. If you go over, collection pauses without any charge.
+
+Check it once a week for the first month: which pages get views, and which posts people open after your announcement.
+
 ## 6. Update your profiles to point at the site
 
 - [ ] **LinkedIn:** add the website under Contact info, and put the link in your About section or Featured section.

@@ -6,7 +6,7 @@ import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Full-stack apps and systems projects by Taminul Islam.",
+  description: "Full-stack web apps and a Java desktop system by Taminul Islam.",
 };
 
 // The GitHub section below refreshes at most once an hour.

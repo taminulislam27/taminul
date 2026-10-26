@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Hind_Siliguri, Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
@@ -60,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
         </ThemeProvider>
+        {/* Visitor counts and page views. Needs to be switched on once in the Vercel dashboard (see LAUNCH.md). */}
+        <Analytics />
       </body>
     </html>
   );

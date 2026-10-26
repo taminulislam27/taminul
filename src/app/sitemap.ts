@@ -11,6 +11,9 @@ const staticRoutes = [
   "/teaching",
   "/competitive-programming",
   "/resume",
+  "/activities",
+  "/now",
+  "/uses",
   "/contact",
   ...projects.filter((p) => p.caseStudy).map((p) => `/projects/${p.slug}`),
 ];

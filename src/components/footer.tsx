@@ -15,6 +15,21 @@ export function Footer() {
               Resume
             </Link>
           </li>
+          <li>
+            <Link href="/activities" className="text-muted-foreground transition-colors hover:text-accent">
+              Activities
+            </Link>
+          </li>
+          <li>
+            <Link href="/now" className="text-muted-foreground transition-colors hover:text-accent">
+              Now
+            </Link>
+          </li>
+          <li>
+            <Link href="/uses" className="text-muted-foreground transition-colors hover:text-accent">
+              Uses
+            </Link>
+          </li>
           {socials.map((s) => (
             <li key={s.label}>
               <a

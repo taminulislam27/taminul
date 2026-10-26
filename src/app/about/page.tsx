@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { Timeline } from "@/components/timeline";
+import { ZoomImage } from "@/components/zoom-image";
+import { photos } from "@/lib/gallery";
 import { aboutParagraphs, timeline } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -29,15 +31,29 @@ export default function AboutPage() {
               View my resume
             </Link>
             {" · "}
+            <Link href="/activities" className="text-accent underline-offset-4 hover:underline">
+              Activities and awards
+            </Link>
+            {" · "}
             <Link href="/contact" className="text-accent underline-offset-4 hover:underline">
               Get in touch
             </Link>
           </p>
         </div>
 
-        <aside aria-label="Timeline">
+        <aside aria-label="Photo and timeline" className="flex flex-col gap-12">
+          <ZoomImage
+            photo={photos.portraitNew}
+            showCaption={false}
+            bare
+            priority
+            sizes="(min-width: 1024px) 340px, 100vw"
+            className="mx-auto max-w-xs lg:max-w-none"
+          />
+          <div>
           <h2 className="mb-4 font-mono text-xs uppercase tracking-wider text-accent">Timeline</h2>
           <Timeline items={timeline} />
+          </div>
         </aside>
       </div>
     </>

@@ -1,0 +1,54 @@
+---
+title: "University Bus Tracking System"
+summary: "A Java Swing and MySQL desktop app that makes university transport easier to monitor for students, drivers and administrators, built with Team ByteBrains."
+---
+
+## Why we built it
+
+The idea was simple: how can we make university transportation easier to monitor and more convenient for students, drivers and administrators? We built the system as a team project with Team ByteBrains (Shahriar, Asit and me), and treated it as a real problem instead of a classroom exercise.
+
+![University Bus Tracking System driver dashboard showing a running trip along Route 1, from Barishal Club to University, with the bus at Amtolar Mor](/projects/bus-tracker-cover.jpg)
+
+## What it does
+
+It is a Java Swing desktop application backed by MySQL, designed around three roles:
+
+- **Admin:** manages buses, routes, drivers, approvals and feedback, and views fleet statistics and reports.
+- **Driver:** starts a trip and updates the bus as it moves along the assigned route.
+- **Student:** selects a route, monitors buses, sees estimated arrival information, checks schedules and submits feedback.
+
+Instead of arbitrary sample data, we grounded the system in real university transportation information: route names, stop sequences, bus identifiers and published departure schedules.
+
+## Stack
+
+| Purpose | Technology |
+| --- | --- |
+| Language | Java |
+| Interface | Java Swing |
+| Database | MySQL, served locally with XAMPP |
+| Connectivity | JDBC |
+| IDE | NetBeans |
+
+## Technical decisions
+
+### Simulated live tracking
+
+Real GPS hardware was outside the scope of the project, so we simulated tracking with a `current_stop_index`. The bus position changes as the trip progresses, and the dashboards periodically poll the database so every role sees the same state.
+
+### A layered, DAO-based design
+
+Database access goes through DAO classes using `PreparedStatement` for safer SQL, on top of a schema with primary and foreign key relationships. Because the layers are separate, the tracking mechanism can be replaced with a real GPS data source later without redesigning the whole application.
+
+### Reports
+
+Admins can export CSV reports from the fleet data.
+
+## What I learned
+
+- A good software solution is not only about writing code. It is about modelling the real problem properly.
+- Java Swing and GUI development, MySQL database design, JDBC, DAO architecture, key relationships, role-based workflows and polling all had to work together in one complete system.
+- Connecting database design, application architecture, user roles and real-world requirements is where most of the learning happened.
+
+## What's next
+
+The current system uses simulated tracking. Replacing it with a real GPS-based source is the natural next step to make it more practical for real university transportation.
