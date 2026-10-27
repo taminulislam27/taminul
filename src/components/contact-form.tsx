@@ -71,23 +71,22 @@ export function ContactForm({ formId }: { formId?: string }) {
       return;
     }
 
-    // 4. Send successfully validated data to Formspree using FormData (avoids CORS issues)
+    // 4. Send successfully validated data to Formspree as JSON
     setStatus("sending");
     try {
-      const formData = new FormData();
-      formData.append("name", parsed.data.name);
-      formData.append("email", parsed.data.email);
-      formData.append("topic", parsed.data.topic);
-      formData.append("message", parsed.data.message);
-      // Formspree uses this as the subject line of the email you receive.
-      formData.append("_subject", `[${parsed.data.topic}] message from ${parsed.data.name} via your website`);
-
       const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
-        body: formData,
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
         },
+        body: JSON.stringify({
+          name: parsed.data.name,
+          email: parsed.data.email,
+          topic: parsed.data.topic,
+          message: parsed.data.message,
+          _subject: `[${parsed.data.topic}] message from ${parsed.data.name} via your website`,
+        }),
       });
 
       setStatus(res.ok ? "sent" : "error");
